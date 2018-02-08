@@ -1,0 +1,13 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+str = raw_input("please input:") # raw_input():从标准输入读取一个行，并返回一个字符串（去掉结尾的换行符）
+print 'you input is:',str
+
+str = input("please input:") #input():所有输入为字符串，返回字符串类型 （如：输入'hello',返回hello）
+print 'you input is:',str
+
+'''
+raw_input():把所有输入当成字符串，如输入1+2，返回1+2
+input():可以输入表达式，如输入1+2，返回3
+'''

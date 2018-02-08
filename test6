@@ -1,0 +1,7 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import test6
+
+print test6.add(2,3)
+print test6.printadd([4,5])

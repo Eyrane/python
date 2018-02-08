@@ -1,0 +1,92 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+print '***********函数'
+'''
+def functionname( parameters ):
+   "函数_文档字符串"
+   function_suite
+   return [expression]
+'''
+def printme( str ):
+	"print on the screen"
+	print str
+	return
+printme('hello')
+printme('你好')
+
+'''
+类型属于对象，变量是没有类型的。strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。
+变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。
+变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。
+类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。
+类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响
+'''
+
+def chang( a ):
+	'test parameters change or not'
+	print 'before chang a=',a
+	a = 10
+	print 'after chang a=',a
+	
+def changlist( a ):
+	'test parameters change or not'
+	print 'before chang a=',a
+	a.append([1,2,3,4])
+	print 'after chang a=',a
+	return
+b = 2
+chang(b)
+print b  #numbers,strings, tuples做参数时，不影响实参
+c = [10, 20 ,30]
+chang(c[1]) #相当于实参为int，不影响实参
+print c
+changlist(c) #list,dict做参数时，影响实参
+print c
+
+
+#使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。
+def printinfo( name, age ):
+	'测试参数顺序'
+	print 'name=',name, 'age=',age
+	return
+	
+printinfo( age=50, name='lily' )
+
+
+
+print '***********不定长参数'
+'''
+def functionname([formal_args,] *var_args_tuple ):
+   "函数_文档字符串"
+   function_suite
+   return [expression]
+'''
+def print1( arg1, *vartuple ):  #第一个参数传给arg1，其他当作一个元组传给vartuple
+	'打印任何长度的参数'
+	print '输出：'
+	print arg1
+	print vartuple
+	for var in vartuple:
+		print var
+	return
+print1(10)
+print1(70,60,50)
+print1( (10,20,30) ,50,60 )
+print1( (10,20,30) ,(50,60) )
+print1( (10,20,30) ,(50,60), (70,80) )
+
+print '***********匿名参数'
+#lambda [arg1 [,arg2,.....argn]]:expression
+sum = lambda arg1,arg2: arg1+arg2
+print sum(10,20)
+
+def chang2( a ):
+	'test return'
+	print 'before chang a=',a
+	a = 10
+	print 'after chang a=',a
+	return a
+b = 2
+b = chang2(b)
+print b

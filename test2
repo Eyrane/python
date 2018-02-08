@@ -1,0 +1,113 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+print "************算术运算符"
+#**幂 - 返回x的y次幂   //取整除 - 返回商的整数部分
+a = 21; b = 10; c = 1
+print "a+b:",a+b, "a-b:",a-b, "a*b:",a*b ,"a/b:",a/b, "a%b:",a%b, "float a/b:",float(a)/float(b), "(0.0+a)/(0.0+b):",(0.0+a)/(0.0+b) 
+
+
+print "************比较运算符"
+#<>相当于!=
+print "a==b:",a==b, "a!=b:",a!=b, "a<>b:",a<>b, "a>b:",a>b, "a<b:",a<b, "a>=b:",a>=b, "a<=b:",a<=b 
+
+
+print "************赋值运算符"
+#不能 print "a+=b:",a+=b //因为 a=a+b 是一个语句，不能作为一个变量输出
+# += -= *= /=   **=  //=
+a+=b; b-=c;
+print "a+=b:",a, "b-=c:",b
+
+
+print "************位运算符"
+# ^异或：不同为1  
+a = 60 #0011 1100
+b = 13 #0000 1101
+print "a&b=",a&b, "a|b=",a|b, "a^b=",a^b, "~a=",~a, "a<<2=",a<<2, "a>>2=",a>>2
+
+
+print "************逻辑运算符"
+# and or not
+print "a and b:", a and b, "a or b:", a or b, "not a:", not a
+a=0
+print "a=0 a and b:", a and b, "a or b:", a or b, "not a:", not a
+
+print "************成员运算符"
+# in:在指定序列中找到值返回true； not in:与in相反
+list = [1, 2, 3, 4, 5]
+print "a=",a, "a in list:",a in list, "a not in list:",a not in list
+a=1
+print "a=",a, "a in list:",a in list, "a not in list:",a not in list
+
+print "************身份运算符"
+# is：判断两个标识符是否引用自同一个对象   is not
+# x is y 类似 id(x)==id(y)       x is not y 类似 id(x)!=id(y)
+a = 10; b = 10 #交互模式下，如果变量写在同一行,将会指向同一个对象，脚本模式是否写在一行，都指向同一个对象
+print "a=",a, "b=",b, "a is b",a is b, "a is not b",a is not b
+b = 20
+print "a=",a, "b=",b, "a is b",a is b, "a is not b",a is not b
+
+
+#优先级：**  >  ~  >  */% //  >  +-  >  &  >  ^|  >  比较运算符  >  <>==!=  >  赋值运算符 > 身份运算符 > 成员运算符 > 逻辑运算符
+
+
+print "############条件语句"
+#   if 条件1:
+#   	语句1
+#   elif 条件2:
+#   	语句2
+#   elif 条件3:
+#   	语句3
+#   else:
+#   	语句4
+# python 并不支持 switch 语句
+n = 15
+if n >= 0 and n <= 10:
+	print "0<=n<=10"
+elif n < 0:
+	print "n<0"
+elif n > 10:
+	print "n>10"
+else:
+	print "wrong"
+	
+	
+	
+print "############循环语句"
+# while for 嵌套；  break continue pass(空语句）
+print "############while"
+i = 1
+while i < 10:
+	i += 1
+	if i % 2 > 0:
+		continue  #跳过本次循环
+	if i > 8:
+		break   #退出循环
+	print i
+else:
+	print i
+print "############for"
+for j in range(1,9):
+	if j % 2 > 0:
+		continue
+	if j > 8:
+		break
+	print j
+else:
+	print j
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
