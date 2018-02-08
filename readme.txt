@@ -20,3 +20,5 @@ test6.py:自定义的一个模块
 test6：对自定义的模块test6进行调用
 
 test7:控制台io（raw_input,input）,文件io（open,close,write,read,tell,seek)
+
+test8:异常处理，try(执行的代码） except(异常出现会执行） else(没有异常会执行） finally(总会执行）
