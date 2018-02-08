@@ -1,4 +1,4 @@
-学习网址：http://www.runoob.com/python/python-operators.html
+learn web: http://www.runoob.com/python/python-operators.html
 
 若运行的时候出现如下错误：
 bash: ./test: /usr/bin/python^M: 解释器错误: 没有那个文件或目录  //文件编辑格式出错
@@ -18,3 +18,5 @@ test5函数:函数的定义和调用、形参和实参、不定长参数、匿�
 
 test6.py:自定义的一个模块
 test6：对自定义的模块test6进行调用
+
+test7:控制台io（raw_input,input）,文件io（open,close,write,read,tell,seek)

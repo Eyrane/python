@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+print '*************控制台IO'
 str = raw_input("please input:") # raw_input():从标准输入读取一个行，并返回一个字符串（去掉结尾的换行符）
 print 'you input is:',str
 
@@ -10,4 +11,34 @@ print 'you input is:',str
 '''
 raw_input():把所有输入当成字符串，如输入1+2，返回1+2
 input():可以输入表达式，如输入1+2，返回3
+'''
+
+print '\n*************文件IO'
+fp = open( "readme.txt","r" ) #打开文件
+print '文件名：',fp.name, '是否关闭：',fp.closed, '访问模式：',fp.mode, '末尾是否强制加空格：',fp.softspace
+
+str = fp.read(10) #若可写的模式下，fp.write('hello') 写入文件
+print str
+print fp.tell() # 查找当前位置
+
+fp.seek(0,1) 
+#seek（offset [,from]）方法改变当前文件的位置。Offset变量表示要移动的字节数。From变量指定开始移动字节的参考位置。
+#如果from被设为0，这意味着将文件的开头作为移动字节的参考位置。如果设为1，则使用当前的位置作为参考位置。如果它被设为2，那么该文件的末尾将作为参考位置。
+
+print fp.read(10)
+
+print fp.next() #返回文件的下一行
+
+fp.seek(0,0) 
+print fp.readline() #从文件读取整行，包括 "\n" 字符。如果指定了一个非负数的参数，则返回该行中指定大小的字节数
+
+for line in fp.readlines(): #用于读取所有的行，常用于for...in...结构
+	line = line.strip() #strip() 方法用于移除字符串头尾指定的字符（默认为空格）
+	print line
+	
+fp.close() #关闭文件
+
+'''
+os.rename(current_file_name, new_file_name) 重命名
+os.remove(file_name)  删除文件
 '''
