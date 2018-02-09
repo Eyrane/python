@@ -1,0 +1,217 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+'''
+类：用来描述具有相同的属性和方法的对象的集合，类包括了类变量和方法（函数）
+class ClassName:
+   '类的帮助信息'   #类说明文档字符串
+   class_suite  #类体
+类的方法与普通的函数只有一个特别的区别——它们必须有一个额外的第一个参数名称, 按照惯例它的名称是 self
+'''
+class Employee:
+   '所有员工的基类'
+   empCount = 0 #类变量,它的值将在这个类的所有实例之间共享
+ 
+   def __init__(self, name, salary):  #构造函数，当创建了这个类的实例时就会调用该方法
+      self.name = name     #self代表类的实例,self在定义类的方法时是必须有的，虽然在调用时不必传入相应的参数
+      self.salary = salary
+      Employee.empCount += 1
+   
+   def displayCount(self):
+     print "Total Employee %d" % Employee.empCount
+ 
+   def displayEmployee(self):
+      print "Name : ", self.name,  ", Salary: ", self.salary
+	  
+   def __del__(self):
+      class_name = self.__class__.__name__
+      print class_name, "销毁"
+	  
+emp1 = Employee("Zara", 2000)  #"创建 Employee 类的对象
+emp2 = Employee("Manni", 5000)
+emp1.displayEmployee() #访问对象的属性
+emp2.displayEmployee()
+emp1.displayCount()
+emp2.displayCount()
+print "Total Employee %d" % Employee.empCount
+
+emp1.age = 7  # 添加一个 'age' 属性
+emp1.age = 8  # 修改 'age' 属性
+del emp1.age  # 删除 'age' 属性
+
+setattr(emp1, 'age', 8) # 添加属性 'age' 值为 8
+print hasattr(emp1, 'age')    # 如果存在 'age' 属性返回 True。
+print getattr(emp1, 'age')    # 返回 'age' 属性的值
+delattr(emp1, 'age')    # 删除属性 'age'
+
+
+
+'''
+内置类属性
+__dict__ : 类的属性（包含一个字典，由类的数据属性组成） 
+__doc__ :类的文档字符串 
+__name__: 类名 
+__module__: 类定义所在的模块（类的全名是'__main__.className'，如果类位于一个导入模块mymod中，那么className.__module__ 等于 mymod） 
+__bases__ : 类的所有父类构成元素（包含了一个由所有父类组成的元组） 
+'''
+print "Employee.__doc__:", Employee.__doc__
+print "Employee.__name__:", Employee.__name__
+print "Employee.__module__:", Employee.__module__
+print "Employee.__bases__:", Employee.__bases__
+print "Employee.__dict__:", Employee.__dict__
+
+
+print '*************删除对象'
+'''
+当对象被创建时， 就创建了一个引用计数， 当这个对象不再需要时， 也就是说， 这个对象的引用计数变为0 时
+a = 40      # 创建对象  <40>
+b = a       # 增加引用， <40> 的计数
+c = [b]     # 增加引用.  <40> 的计数
+
+del a       # 减少引用 <40> 的计数
+b = 100     # 减少引用 <40> 的计数
+c[0] = -1   # 减少引用 <40> 的计数
+'''
+emp3 = emp1
+print id(emp1), id(emp2), id(emp3) # 打印对象的id ,emp3和emp1相同
+del emp1
+print '1111111'
+del emp2
+print '2222222'
+del emp3     #删除所有引用时，会自动调用析构函数
+print '3333333'
+
+
+
+print '\n*************类的继承'
+'''
+class SubClassName (ParentClass1[, ParentClass2, ...]):
+   'Optional class documentation string'
+   class_suite
+1：在继承中基类的构造（__init__()方法）不会被自动调用，它需要在其派生类的构造中亲自专门调用。
+2：在调用基类的方法时，需要加上基类的类名前缀，且需要带上self参数变量。
+3：Python总是首先查找对应类型的方法，如果它不能在派生类中找到对应的方法，它才开始到基类中逐个查找。
+'''
+class Parent1:
+	parentAttr = 100    # 公开变量
+	__privateAttr = 1000  # 私有变量,只能在本类中用函数调用，不能在本类的外部使用
+	def __init__(self):
+		print "调用父类1构造函数"
+	def myMethod(self):
+		print "调用父类1方法myMethod"
+	def parentMethod(self):
+		print "调用父类1方法"
+	def setAtt(self, att):
+		Parent1.parentAttr = att
+	def setAtt1(self, att):
+		self.parentAttr = att #self 代表类的实例
+	def getAtt(self):
+		print "父类1属性:",Parent1.parentAttr
+	def getAtt1(self):
+		print "父类1属性:",self.parentAttr
+	def __del__(self):
+		class_name = self.__class__.__name__
+		print class_name, "销毁"
+
+class Parent2:
+	parentAttr = 200
+	def __init__(self):
+		print "调用父类2构造函数"
+	def parentMethod(self):
+		print "调用父类方法"
+	def parent2Method(self):
+		print "父类2的方法parent2Method"
+
+class Child(Parent1, Parent2):#继承多个类，先找Parent1，若Parent1没有再找Parent2
+	def __init__(self):  #若子类没有构造函数，会自动调用父类构造函数
+		print "调用子类构造函数"
+	def myMethod(self):
+		print "方法重写，调用子类方法myMethod"
+	def childMethod(self):
+		print "调用子类方法"
+	def __del__(self):#本文件所有代码执行完后，会自动调用
+		class_name = self.__class__.__name__
+		print class_name, "销毁"
+
+c = Child()
+c.myMethod()  #方法重写，子类的方法会覆盖父类的
+c.childMethod()
+c.parentMethod()  #子类会继承父类的所有属性和方法
+c.parent2Method()
+c.setAtt(200)
+c.getAtt() 
+c.getAtt1()
+c.setAtt1(300)
+c.getAtt() 
+c.getAtt1()
+print issubclass(Child,Parent1)  #issubclass(sub,sup) - 布尔函数判断一个类是另一个类的子类或者子孙类
+print isinstance(c,Parent1)  #isinstance(obj, Class) 布尔函数判断obj是Class类的实例对象或者是一个Class子类的实例对象
+
+'''
+__foo__: 定义的是特殊方法，一般是系统定义名字 ，类似 __init__() 之类的。
+_foo: 以单下划线开头的表示的是 protected 类型的变量，即保护类型只能允许其本身与子类进行访问，不能用于 from module import *
+__foo: 双下划线的表示的是私有类型(private)的变量, 只能是允许这个类本身进行访问了。
+'''
+
+'''
+子类会继承父类的所有属性，若子类调用的函数在子类中存在，则直接调用子类的函数，若不存在，调用父类的函数
+多继承，会先寻址最先继承的
+public,protected,private
+'''
+print '\n*********私有和共有变量'
+class JustCounter:
+    __secretCount = 0  # 私有变量
+    publicCount = 0    # 公开变量
+    def count(self):
+        self.__secretCount += 1
+        self.publicCount += 1
+        print self.__secretCount
+    def count2(self):
+        print self.__secretCount
+
+counter = JustCounter()
+counter.count()
+# 在类的对象生成后,调用含有类私有属性的函数时就可以使用到私有属性.
+counter.count()
+#第二次同样可以.
+print 'publicCount=',counter.publicCount
+print '__secretCount=', counter._JustCounter__secretCount  # 不改写报错，实例不能访问私有变量
+try:
+    counter.count2()
+except IOError:
+    print "不能调用非公有属性!"
+else:
+    print "ok!" #现在呢!证明是滴!
+
+	
+print '\n*********新式类和经典类的区别'	
+'''
+D 继承了 object 和不继承程序输出不一样，继承 object 会调用 C 类的 foo，否则会调用 Ａ 的。
+使用 super 进行父类构造调用那么必须使用 object 继承的新式类，否则报错。
+'''
+class A:
+   def foo(self):
+      print('called A.foo()')
+class B(A):
+   pass
+class C(A):
+   def foo(self):
+      print('called C.foo()')
+class D(B, C,object):#新式类
+   pass
+class E(B, C):
+	pass
+
+if __name__ == '__main__':
+   d = D()
+   d.foo()
+   e = E()
+   e.foo()
+'''
+B、C 是 A 的子类，D 多继承了 B、C 两个类，其中 C 重写了 A 中的 foo() 方法。
+如果 A 是经典类（如上代码），当调用 D 的实例的 foo() 方法时，Python 会按照深度优先的方法去搜索 foo() ，路径是 B-A-C ，执行的是 A 中的 foo() ；
+如果 A 是新式类，当调用 D 的实例的 foo() 方法时，Python 会按照广度优先的方法去搜索 foo() ，路径是 B-C-A ，执行的是 C 中的 foo() 。
+因为 D 是直接继承 C 的，从逻辑上说，执行 C 中的 foo() 更加合理，因此新式类对多继承的处理更为合乎逻辑。
+在 Python 3.x 中的新式类貌似已经兼容了经典类，无论 A 是否继承 object 类， D 实例中的 foo() 都会执行 C 中的 foo() 。
+但是在 Python 2.7 中这种差异仍然存在，因此还是推荐使用新式类，要继承 object 类。
+'''
