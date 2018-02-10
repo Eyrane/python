@@ -1,0 +1,354 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+#例1：有四个数字：1、2、3、4，能组成多少个互不相同且无重复数字的三位数？各是多少？
+
+def func1():
+	n = 0
+	for i in range(1,5):
+		for j in range(1,5):
+			for k in range(1,5):
+				if ( i!=j and j!=k and i!=k ):
+					n += 1
+					print i,j,k
+	print '个数为',n
+
+#func1()
+
+'''
+出现错误：IndentationError: unindent does not match any outer indentation level
+原因：空格或Tab没有统一
+解决方法：使用notepad编辑的代码，视图->显示符合->显示空格与制表符
+          将空格和制表符统一
+'''
+
+'''
+企业发放的奖金根据利润提成。利润(I)低于或等于10万元时，奖金可提10%；
+利润高于10万元，低于20万元时，低于10万元的部分按10%提成，高于10万元的部分，可提成7.5%；
+20万到40万之间时，高于20万元的部分，可提成5%；40万到60万之间时高于40万元的部分，可提成3%；
+60万到100万之间时，高于60万元的部分，可提成1.5%，高于100万元时，超过100万元的部分按1%提成，
+从键盘输入当月利润I，求应发放奖金总数？
+'''
+def func2():
+	print 'please input a number:'
+	n = input()
+	if n <= 10:
+		print 0.1*n
+	elif 10 < n <= 20:
+		print 0.1*10 + 0.075*(n-10)
+	elif 20 < n <= 40:
+		print 0.1*10 + 0.075*10 + 0.05*(n-20)
+	elif 40 < n <= 60:
+		print 0.1*10 + 0.075*10 + 0.05*20 + 0.03*(n-40)
+	elif 60 < n <= 100:
+		print 0.1*10 + 0.075*10 + 0.05*20 + 0.03*30 + 0.015*(n-60)
+	elif n > 100:
+		print 0.1*10 + 0.075*10 + 0.05*20 + 0.03*30 + 0.015*40 + 0.01*(n-100)
+	else:
+		print "wrong input!"
+#func2()
+
+
+#一个整数，它加上100后是一个完全平方数，再加上168又是一个完全平方数，请问该数是多少？
+'''
+x+100 = n*n      x+100+168 = m*m
+m*m -n*n = 168 = (m+n)*(m-n) = i*j   i=(m+n) j=(m-n)
+i+j = 2m    i-j =2n
+得到条件：
+1. i*j = 168
+2. i,j为偶数， j>=2，则 1 < i < 168 / 2 + 1
+'''
+def func3():
+	for i in range(1,85):
+		if (168 % 2 == 0):
+			j = 168/i
+			if ( i>j and (i+j)%2==0 and (i-j)%2==0 ):
+				m = (i+j)/2
+				n = (i-j)/2
+				x = n*n -100
+				print 'i=',i, 'j=',j, 'm=',m, 'n=',n, 'x=',x
+#func3()
+
+
+
+#斐波那契数列（Fibonacci sequence），又称黄金分割数列，
+#指的是这样一个数列：0、1、1、2、3、5、8、13、21、34、……
+def func4(a):
+	if (a==0 or a==1):
+		return a
+	else:
+		return func4(a-1) + func4(a-2)
+#print "please input a int:"
+#a = input()
+#print func4(a)
+
+
+#将一个列表的数据复制到另一个列表中
+def func5():
+	print '请输入一个列表'
+	a = input()
+	b = []
+	#b = a[:]
+	#b = copy.copy[a]
+	#b = a.copy()
+	for i in a:
+		b.append(i)
+	print b
+#func5()
+
+
+#输出 9*9 乘法口诀表
+def func6():
+	for i in range(1,10):
+		print
+		for j in range(1,i+1):
+			print '%d*%d=%d' % (i,j,i*j),  #最后面必须加上”，“
+#func6()
+
+
+
+
+#判断101-200之间有多少个素数，并输出所有素数
+import math
+def func7():
+	n = 0
+	flag = 1
+	for i in range(101,201):
+		for j in range(2,int(math.sqrt(i+1))+1):
+			if ( i%j==0 ):
+				flag = 0
+				break   #跳出最近的循环
+		if (flag == 1):
+			print i
+			n += 1
+		flag = 1
+	print 'total number=',n
+#func7()
+
+
+#打印出所有的"水仙花数"，所谓"水仙花数"是指一个三位数，其各位数字立方和等于该数本身。
+#例如：153是一个"水仙花数"，因为153=1的三次方＋5的三次方＋3的三次方
+def func8():
+	for n in range(100,1000):
+		i = n/100
+		j = (n-i*100)/10
+		k = n-i*100-j*10
+		if (n==i**3+j**3+k**3):
+			print n
+#func8()
+
+
+#将一个正整数分解质因数。例如：输入90,打印出90=2*3*3*5
+'''
+xrange 用法与 range 完全相同，所不同的是生成的不是一个list对象，而是一个生成器。
+xrange(5)   list(xrange(5))
+要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间
+'''
+def func9(n):
+	print '{}'.format(n)  #格式化字符串
+	if ( not isinstance(n,int) ): #isinstance() 函数来判断一个对象是否是一个已知的类型，类似 type()
+		print '请输入一个正整数：'
+		exit(0)
+	while (n not in [1]): # n==1退出while
+		for index in xrange(2,n+1):  #range会直接生成一个list对象,xrange则不会直接生成一个list，而是每次调用返回其中的一个值
+			if (n%index == 0):
+				n /= index
+				if (n==1):
+					print index
+				else:
+					print '%d*' % index,
+				break
+#func9(100)
+
+
+#输入一行字符，分别统计出其中英文字母、空格、数字和其它字符的个数
+def func10():
+	print '请输入一行字符串:'
+	str = raw_input()
+	letters = 0
+	space =0 
+	digit = 0 
+	others = 0
+	for i in str:
+		if i.isalpha() :
+			letters += 1
+		elif i.isspace() :
+			space += 1
+		elif i.isdigit() :
+			digit += 1
+		else:
+			others += 1
+	print 'char = %d,space = %d,digit = %d,others = %d' % (letters,space,digit,others)
+#func10()
+
+#求s=a+aa+aaa+aaaa+aa...a的值，其中a是一个数字
+def func11(n, a):
+	Tn = 0
+	Sn = []
+	for idx in range(n):
+		Tn += a
+		a *= 10
+		Sn.append(Tn) #存储的是每一项的值
+	Sn = reduce( lambda x,y: x+y ,Sn)  
+	# lambda匿名函数: lambda [arg1 [,arg2,.....argn]]:expression
+	# reduce(function, iterable[, initializer]) 函数会对参数序列中元素进行累积
+	print '和为：',Sn
+#func11(4,4)
+
+
+
+#一个数如果恰好等于它的因子之和，这个数就称为"完数"。例如6=1＋2＋3.编程找出1000以内的所有完数
+def func12():
+	for i in range(2,1001):
+		m = [] #存放i的因子
+		for j in range(1,i):
+			if (i%j==0):
+				m.append(j)
+		if ( i==reduce( lambda x,y: x+y ,m) ):
+			print i
+			print m
+			m = []
+#func12()
+
+
+
+#一球从100米高度自由落下，每次落地后反跳回原高度的一半；再落下，求它在第10次落地时，共经过多少米？第10次反弹多高？
+def func13():
+	n = 100.0
+	s = 0.0
+	for i in range(1,10):
+		s += n
+		n /= 2
+		s += n
+	s += n
+	print '总高度=',s,'第十次反弹高度=',n
+#func13()
+
+
+'''
+猴子吃桃问题：猴子第一天摘下若干个桃子，当即吃了一半，还不瘾，又多吃了一个
+第二天早上又将剩下的桃子吃掉一半，又多吃了一个。
+以后每天早上都吃了前一天剩下的一半零一个。到第10天早上想再吃时，见只剩下一个桃子了。
+求第一天共摘了多少。
+'''
+def func14():
+	n = 1
+	for i in range(9):
+		n = (n+1)*2
+	print n
+#func14()
+
+#打印n行菱形
+def func15(n):
+	for i in range(1,n/2+2):
+		print 
+		for j in range((n-2*i+1)/2):
+			print ' ',
+		for j in range(2*i-1):
+			print '*',
+		print ' ',
+	for i in range(1,n/2+1):
+		print
+		for j in range(i):
+			print ' ',
+		for j in range(-2*i+n):
+			print '*',
+		print ' ',
+#func15(19) #必须为奇数
+
+
+#有一分数序列：2/1，3/2，5/3，8/5，13/8，21/13...求出这个数列的前20项之和。
+def func16():
+	m = 2.0
+	n = 1.0
+	a = [m/n]
+	for i in range(1,20):
+		n,m = m,m+n  #从右向左赋值
+		a.append( (0.0+m)/(0.0+n))
+	print reduce( lambda x,y:x+y, a)
+#func16()
+'''
+a, b = a, a + b
+右边的 a, a+b 会返回一个tuple  然后这个左边的a, b 会分别赋值为这个tuple里的第一个和第二个
+'''
+def test():
+	a = 1
+	b = 2
+	c = a, a+b  # 这里 c=(1,3)
+	print type(c)  # <type 'tuple'>
+	a, b = a, a + b +10
+	print a, b # 1 13
+	a, b = c
+	print a, b  # 1 3
+#test()
+
+#求1+2!+3!+...+20!的和
+def func17(n):
+	sum = 0
+	a = 1
+	for i in range(1,n+1):
+		for j in range(1,i+1):
+			a *= j
+		sum += a
+		a = 1
+	print 'sum=',sum
+#func17(20)
+
+#利用递归方法求5!
+def func18(n):
+	if n==1 or n==0:
+		return 1
+	else:
+		return n*func18(n-1)
+#print '值为',func18(3)
+
+
+
+
+#按相反的顺序输出列表的值,按逗号分隔列表
+def func19():
+	a = ['one', 'two', 'three']
+	for i in a[::-1]:
+		print i
+	s1 = ','.join(str(n) for n in a) #join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串
+	print s1
+#func19()
+
+
+
+#练习函数调用
+def hello_world():
+	print 'hello world'
+ 
+def three_hellos():
+	for i in range(3):
+		hello_world()
+if __name__ == '__main__':
+	three_hellos()
+
+
+#求一个3*3矩阵主对角线元素之和   二维数组
+def func20():
+	a = []
+	sum = 0.0
+	for i in range(3):
+		a.append([])
+		for j in range(3):
+			a[i].append( float(raw_input("input num:\n")) )
+	for i in range(3):
+		sum += a[i][i]
+	print 'sum=',sum
+	print a
+#func20()
+
+
+#全局变量和局部变量
+num = 2  #全局变量
+def autofunc():
+	num = 1  #局部变量
+	print 'internal block num = %d' % num
+	num += 1
+for i in range(3):
+	print 'The num = %d' % num
+	num += 1
+	autofunc()
