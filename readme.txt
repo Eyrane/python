@@ -26,3 +26,6 @@ test8:异常处理，try(执行的代码） except(异常出现会执行） else
 test9:类：类的定义和使用、类的继承、方法的重写、public,protected,privated、新式类和经典类
 
 test10:几个练习实例
+test12:练习实例
+
+test11:GUI编程，画圆形、矩形

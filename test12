@@ -1,0 +1,223 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+#有n个人围成一圈，顺序排号。从第一个人开始报数（从1到3报数），凡报到3的人退出圈子，问最后留下的是原来第几号的那位。
+def func1():
+	n = int( input('请输入总人数:') )
+	num = []
+	for i in range(n):
+		num.append(i+1)
+	
+	i = 0   #记录了第几个人
+	k = 0   #记录了报号数
+	m = 0   #记录了退出圈子的人数
+	
+	while m<n-1 :
+		if num[i]!=0:
+			k += 1
+		if k==3:
+			num[i] = 0  #报到3时，退出圈子
+			k = 0
+			m += 1
+		i += 1
+		if i==n :  #总共n个人
+			i = 0
+	for i in range(len(num)):
+		if num[i]!=0:
+			print num[i]
+#func1()
+
+
+#打印出杨辉三角形
+def func2():
+	n = int( input('请输入总行数:') )
+	a = []
+	for i in range(n):
+		a.append([])
+		for j in range(n):
+			a[i].append(0)
+	for i in range(n):
+		a[i][0] = 1
+		a[i][i] = 1
+	for i in range(2,n):
+		for j in range(1,i):
+			a[i][j] = a[i-1][j-1] + a[i-1][j]
+	for i in range(n):
+		for j in range(i+1):
+			print '%2d'% (a[i][j]),
+		print 
+	#倒三角形式打印
+	for i in range(n):
+		if i%2==0:
+			for j in range((n-i)/2):
+				print '  ',
+			for j in range(i+1):
+				print '%2d'% (a[i][j]),
+		else :
+			print ' ',
+			for j in range((n-i)/2-1):
+				print '  ',
+			for j in range(i+1):
+				print '%2d'% (a[i][j]),
+		print 
+#func2()
+
+
+
+#有n个整数，使其前面各数顺序向后移m个位置，最后m个数变成最前面的m个数
+def func3():
+	n = input('输入一个队列:\n')
+	m = int(raw_input('向后移 m 个位置为:\n'))
+	print '原始队列为：',n
+	
+	while m>0 :
+		end = n[len(n)-1]
+		for i in range(len(n)-1,-1,-1):
+			n[i] = n[i-1]
+		n[0] = end
+		m -= 1
+	print '移动队列为：',n
+#func3()
+
+
+
+#编写input()和output()函数输入，输出5个学生的数据记录
+def input_stu(stu):
+	for i in range(len(stu)):
+		print '请输入第%d个学生的信息:' % (i+1)
+		stu[i].append(raw_input('input student name:\n'))
+		stu[i].append(raw_input('input student sex:\n'))
+		stu[i].append(int(raw_input('score:\n')))
+
+
+def output_stu(stu):
+	print '学生的信息如下:'
+	for i in range(len(stu)):
+		for j in range(len(stu[i])):
+			print stu[i][j],
+		print 
+
+def func4():
+	n = input('输入学生数:\n')
+	student = []
+	for i in range(n):
+		student.append([])
+	input_stu(student)   #以数组做实参，其值会改变；以变量做实参，值不会改变
+	output_stu(student)
+#func4()
+
+
+#字符串排序。
+def func5():
+    str1 = raw_input('input string:\n')
+    str2 = raw_input('input string:\n')
+    str3 = raw_input('input string:\n')
+    print str1,str2,str3
+    
+    if str1 > str2 : str1,str2 = str2,str1
+    if str1 > str3 : str1,str3 = str3,str1
+    if str2 > str3 : str2,str3 = str3,str2
+ 
+    print 'after being sorted.'
+    print str1,str2,str3
+#func5()
+
+
+'''
+海滩上有一堆桃子，五只猴子来分。第一只猴子把这堆桃子平均分为五份，多了一个，这只猴子把多的一个扔入海中，拿走了一份。
+第二只猴子把剩下的桃子又平均分成五份，又多了一个，它同样把多的一个扔入海中，拿走了一份，
+第三、第四、第五只猴子都是这样做的，问海滩上原来最少有多少个桃子？
+'''
+def func6():
+	i = 0
+	j = 0
+	x = 0
+	while i<5 :  #5只猴子
+		x = 4*j  #标记桃子的个数
+		for i in range(5):#5只猴子
+			if(x%4!=0):  #逆向思考，必须为4的倍数
+				break;
+			else:
+				i += 1
+			x = (x/4)*5+1   #逆向思考
+		j += 1 #j控制x
+	print x
+#func6()
+
+
+
+#列表转换为字典。
+def func7():
+	i = ['a', 'b']
+	l = [1, 2]
+	print dict([i,l])
+	
+	dict1 = {}
+	for key in range(len(i)):
+		dict1[i[key]] = l[key]
+	print dict1
+	
+	b=dict(zip(i,l))
+	print b
+	
+	print({i[j]: l[j] for j in range(len(i))})
+	
+	d = {}
+	for j in range(len(i)):
+		d.setdefault(i[j],l[j])
+	print d
+#func7()
+
+
+
+#多维数组
+def func8():
+	matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]  
+	print matrix  
+	print matrix[1]  
+	col2 = [row[1] for row in matrix]#get a  column from a matrix  
+	print col2  
+	col2even = [row[1] for row in matrix if  row[1] % 2 == 0]#filter odd item  
+	print col2even
+#func8()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
